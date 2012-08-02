@@ -53,10 +53,11 @@ public class aes {
         // multiply by three in Rijndael's Galois field is simply a multiply 
         // by two exclusive ored with the value we are multiplying by.
         for(int i=1; i<256; i++) {
+            // multiply by 2
             a = (alog[i-1])<<1;
-            // x2 reduced using AES irreducible polynomial 0x1b
+            // reduce using AES irreducible polynomial 0x1B
             if((a&0x800) != 0) a ^= 0x1B;
-            // log and antilog tables
+            // compute log and antilog
             alog[i]           = (byte)(alog[i-1]^a);
             log[0xFF&alog[i]] = (byte)i;
         }
